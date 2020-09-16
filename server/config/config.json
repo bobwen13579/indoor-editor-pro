@@ -1,0 +1,83 @@
+{
+    "app": {
+      "port": 8899,
+      "name": "Enigma",
+      "keys": ["Burst Cat"],
+      "host": "https://mkt.dangwu.com"
+    },
+    "logger": {},
+    "cdn": {
+      "bucket": "static",
+      "host": "https://static.dist10.cn",
+      "accessKey": "TRaa40ICW_1WS40fIm5USryhsYfSX-9kVMj51GHq",
+      "secretKey": "dmG-72QcXKMPcao-ZUi0Q89pApGCLGqeaGJHjDJY"
+    },
+    "middleware": {
+      "body": {
+        "uploadDir": "/tmp",
+        "multipart": true,
+        "jsonLimit": "50mb",
+        "formLimit": "10mb",
+        "textLimit": "50mb"
+      },
+      "session": {
+        "key": "dangwu-mkt:sess",
+        "maxAge": 86400000,
+        "overwrite": true,
+        "httpOnly": true,
+        "signed": true
+      },
+      "csrf": {
+        "invalidSessionSecretMessage": "Invalid session secret",
+        "invalidSessionSecretStatusCode": 403,
+        "invalidTokenMessage": "Invalid CSRF token",
+        "invalidTokenStatusCode": 403,
+        "emptyTokenMessage": "Empty CSRF",
+        "excludedMethods": ["GET", "HEAD", "OPTIONS"],
+        "disableQuery": false,
+        "whiteList": ["/api/example"]
+      }
+    },
+    "wechat": {
+      "token": "dangwu",
+      "appId": "wx7fc42542605d6c8d",
+      "appSecret": "1d8d4b889c30318f28d6a3b949055498",
+      "host": "https://api.weixin.qq.com",
+      "api": {
+        "accessToken": "/cgi-bin/token"
+      }
+    },
+    "shop": {
+      "host": "https://qa-shop.dangwu.com",
+      "prefix": "/api"
+    },
+    "poi": {
+      "host": "http://poi-service.default",
+      "prefix": "/v2"
+    },
+    "crmpush": {
+      "host": "https://qa-crm.dangwu.com",
+      "prefix": "/api"
+    },
+    "mongoose": {
+      "uri": "mongodb://mongo.qa/dangwu-mkt",
+      "config": {
+        "useNewUrlParser": true,
+        "useCreateIndex": true,
+        "useFindAndModify": false,
+        "poolSize": 10,
+        "bufferMaxEntries": 0,
+        "connectTimeoutMS": 10000,
+        "useUnifiedTopology": true
+      }
+    },
+    "redis": {
+      "host": "localhost",
+      "port": 6379,
+      "url": "redis://:redis@redis.qa"
+    },
+    "elasticsearch": {
+      "host": "http://elasticsearch.qa:9200"
+    }
+  }
+  
