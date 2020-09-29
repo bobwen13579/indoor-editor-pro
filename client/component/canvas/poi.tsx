@@ -17,7 +17,6 @@ const Poi: React.FC<InferProps<typeof MallSelectorProps>> = React.memo(({
 }) => {
   const realLine = useRef(null);
   useMount(() => {
-    console.log(realLine);
   });
   const line = points.flat();
   
@@ -31,7 +30,7 @@ const Poi: React.FC<InferProps<typeof MallSelectorProps>> = React.memo(({
       points={line}
       fill={'rgba(17, 101, 154, 0.1)'}
       stroke={'#806332'}
-      strokeWidth={3 / scale}
+      strokeWidth={2 / scale}
       closed={true}
       draggable={true}
     />

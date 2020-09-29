@@ -5,7 +5,7 @@ import {
 import {
   BrowserRouter as Router,
 } from 'react-router-dom';
-import Map from './component/Map'
+import Map from './component/view/MapIndex'
 // import BreadcrumbNames from './config/breadcrumbNameMap';
 
 

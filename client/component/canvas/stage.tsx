@@ -1,11 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Stage, Layer, Rect, Text } from 'react-konva';
 import { useMount } from 'react-use';
-import { useDebouncedCallback } from 'use-debounce';
-import buildings from '../mock/building.json';
+import buildings from '../../mock/building.json';
 import Poi from './poi';
-import { useSelector, useDispatch } from 'react-redux';
-import { ReactReduxContext, Provider } from 'react-redux';
 
 const getPois = (stage: any) => {
   return buildings.Area.features.map((poi: any) => {
@@ -28,11 +25,11 @@ const getScale = (stage: any) => {
 };
 
 const toPoint = ([x, y]: number[], stage: any) => {
-  const s = getScale(stage);
+  const scale = getScale(stage);
   const minX = buildings.bounds.min_x;
   const minY = buildings.bounds.min_y;
   const size = buildings.real_size[2];
-  return [(x - minX) / (size * s), (y - minY) / (size * s)];
+  return [(x - minX) / (size * scale), (y - minY) / (size * scale)];
 };
 
 const getStagePosition = (newScale: number, stage: any) => {
@@ -65,26 +62,7 @@ const MIN_SCALE = 0.1;
 const MainStage: React.FC = () => {
   const realStage = useRef(null);
   const [pois, setPois] = useState<any[]>([]);
-  // const store = useSelector((state) => state);
-  // const store = useSelector((state) => state);
-  // const dispatch = useDispatch();
   const [scale, setScale] = useState(1)
-  // const [debouncedCallback] = useDebouncedCallback(
-  //   // function
-  //   ({ x, y, scale }) => {
-  //     const { current: stage } = realStage;
-  //     stage.to({
-  //       x,
-  //       y,
-  //       scaleX: scale,
-  //       scaleY: scale,
-  //     });
-  //     // setScale(scale)
-  //     // dispatch({ type: 'changeScale', scale });
-  //   },
-  //   // delay in ms
-  //   10
-  // );
   useMount(() => {
     const { current } = realStage;
     // registerWheelEvent(current);
@@ -105,7 +83,6 @@ const MainStage: React.FC = () => {
       scaleX: newScale,
       scaleY: newScale,
     });
-    console.log(newScale)
     setScale(newScale)
   };
   return (
