@@ -9,10 +9,11 @@ const MallSelectorProps = {
     id: String,
     points: [],
   },
+  scale: Number,
 };
 
-const Poi: React.FC<InferProps<typeof MallSelectorProps>> = ({
-  poi: { id, points },
+const Poi: React.FC<InferProps<typeof MallSelectorProps>> = React.memo(({
+  poi: { id, points }, scale
 }) => {
   const realLine = useRef(null);
   useMount(() => {
@@ -20,7 +21,8 @@ const Poi: React.FC<InferProps<typeof MallSelectorProps>> = ({
   });
   const line = points.flat();
   
-  const scale = useSelector(state => state.map.scale);
+  // const scale = useSelector(state => state.map.scale);
+  // console.log(scale)
 
   return (
     <Line
@@ -29,11 +31,11 @@ const Poi: React.FC<InferProps<typeof MallSelectorProps>> = ({
       points={line}
       fill={'rgba(17, 101, 154, 0.1)'}
       stroke={'#806332'}
-      strokeWidth={ 2 / scale}
+      strokeWidth={3 / scale}
       closed={true}
       draggable={true}
     />
   );
-};
+});
 
 export default Poi;

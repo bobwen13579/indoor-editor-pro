@@ -65,25 +65,26 @@ const MIN_SCALE = 0.1;
 const MainStage: React.FC = () => {
   const realStage = useRef(null);
   const [pois, setPois] = useState<any[]>([]);
-  const store = useSelector((state) => state);
-  const dispatch = useDispatch();
-
-  console.log(store);
-  const [debouncedCallback] = useDebouncedCallback(
-    // function
-    ({ x, y, scale }) => {
-      const { current: stage } = realStage;
-      stage.to({
-        x,
-        y,
-        scaleX: scale,
-        scaleY: scale,
-      });
-      dispatch({type: 'changeScale', scale})
-    },
-    // delay in ms
-    100
-  );
+  // const store = useSelector((state) => state);
+  // const store = useSelector((state) => state);
+  // const dispatch = useDispatch();
+  const [scale, setScale] = useState(1)
+  // const [debouncedCallback] = useDebouncedCallback(
+  //   // function
+  //   ({ x, y, scale }) => {
+  //     const { current: stage } = realStage;
+  //     stage.to({
+  //       x,
+  //       y,
+  //       scaleX: scale,
+  //       scaleY: scale,
+  //     });
+  //     // setScale(scale)
+  //     // dispatch({ type: 'changeScale', scale });
+  //   },
+  //   // delay in ms
+  //   10
+  // );
   useMount(() => {
     const { current } = realStage;
     // registerWheelEvent(current);
@@ -97,29 +98,49 @@ const MainStage: React.FC = () => {
     if (oldScale < MIN_SCALE && evt.deltaY > 0) return;
     if (oldScale > MAX_SCALE && evt.deltaY < 0) return;
     const newScale = evt.deltaY < 0 ? oldScale / 0.5 : oldScale * 0.5;
-    const newPos = getStagePosition(newScale, stage);
-    debouncedCallback({ ...newPos, scale: newScale });
+    const {x,y } = getStagePosition(newScale, stage);
+    stage.to({
+      x,
+      y,
+      scaleX: newScale,
+      scaleY: newScale,
+    });
+    console.log(newScale)
+    setScale(newScale)
   };
   return (
-    <ReactReduxContext.Consumer>
-      {({ store }) => (
-        <Stage
-          width={window.innerWidth}
-          height={window.innerHeight}
-          ref={realStage}
-          draggable={true}
-          onWheel={scaleMap}
-        >
-          <Provider store={store}>
-            <Layer>
-              {pois.map((poi) => (
-                <Poi key={poi.id} poi={poi} />
-              ))}
-            </Layer>
-          </Provider>
-        </Stage>
-      )}
-    </ReactReduxContext.Consumer>
+    // <ReactReduxContext.Consumer>
+    //   {({ store }) => (
+    //     <Stage
+    //       width={window.innerWidth}
+    //       height={window.innerHeight}
+    //       ref={realStage}
+    //       draggable={true}
+    //       onWheel={scaleMap}
+    //     >
+    //       <Provider store={store}>
+    //         <Layer>
+    //           {pois.map((poi) => (
+    //             <Poi key={poi.id} poi={poi} />
+    //           ))}
+    //         </Layer>
+    //       </Provider>
+    //     </Stage>
+    //   )}
+    // </ReactReduxContext.Consumer>
+    <Stage
+      width={window.innerWidth}
+      height={window.innerHeight}
+      ref={realStage}
+      draggable={true}
+      onWheel={scaleMap}
+    >
+      <Layer>
+        {pois.map((poi) => (
+          <Poi key={poi.id} poi={poi} scale={scale}/>
+        ))}
+      </Layer>
+    </Stage>
   );
 };
 
