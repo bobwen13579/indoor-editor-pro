@@ -6,7 +6,7 @@ const Map: React.FC = () => {
   const [is3DMap, set3DMap] = useState(true);
   return (
   <>
-  {is3DMap? <Stage /> : <Map3d />}
+  {is3DMap? <Map3d /> : <Stage />}
   <div className={Style.changeButton} onClick={() => {set3DMap(!is3DMap)}}>切换地图</div>
   </>);
 };
