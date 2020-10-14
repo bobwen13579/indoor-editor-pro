@@ -57,10 +57,12 @@ const Map = () => {
     console.log(ps)
   });
   return (
-    <Canvas >
+    <Canvas 
+    camera={}
+    >
       <ambientLight />
-      <pointLight position={[10, 10, 10]} />
-      {pois.map((p: any)=> <Poi key={p.id} points={p.points} />)}
+      <pointLight position={[1, 10, 10]} />
+      {pois[0] && [pois[0]].map((p: any)=> <Poi key={p.id} points={p.points} />)}
     </Canvas>
   );
 };

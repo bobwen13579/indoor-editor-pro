@@ -13,7 +13,7 @@ function Box(props: any) {
   console.log([...points[0], 1]);
   return (
     <mesh
-      position={[0, 0, 1]}
+      position={[2, 2, 3]}
       ref={mesh}
       scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
       onClick={(e) => setActive(!active)}
